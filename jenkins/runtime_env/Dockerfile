@@ -12,4 +12,6 @@ RUN service ssh start
 
 EXPOSE 22
 
+RUN /usr/local/tomcat/bin/startup.sh
+
 CMD ["/usr/sbin/sshd","-D"]
