@@ -34,13 +34,5 @@ pipeline {
                 }
             }
         }
-
-        stage ('Deploy to prod')
-            when {
-              expression {IS_DOCKERFILE == 'true'}
-            }
-            steps {
-                echo 'fileExists'
-            }
     }
 }
