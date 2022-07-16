@@ -27,7 +27,7 @@ pipeline {
         stage ('Deploy to test'){
             steps {
                 dir ("demoRest/target"){
-                sh "scp demoRest-*.war test_env:/usr/local/tomcat/webapps/"
+                sh "echo test | scp demoRest-*.war ssh_user@test_env:/usr/local/tomcat/webapps/"
                 }
             }
         }
