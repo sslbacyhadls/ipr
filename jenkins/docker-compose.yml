@@ -14,7 +14,7 @@ services:
 
  jenkins_agent:
    build: mavenSlave/
-   container_name: jnlp-slave
+   container_name: mavenSlave
    user: root
    restart: always
    environment:
@@ -24,4 +24,19 @@ services:
    volumes:
      - /var/run/docker.sock:/var/run/docker.sock
      - /usr/bin/docker:/usr/bin/docker
-     - ./jnlp_slave:/var/jenkins_home
+
+ test_env:
+    build: runtime_env
+    container_name: test_env
+    ports:
+      - '8081:8080'
+    volumes:
+      - ./test_env/:/usr/local/tomcat/webapps/
+
+ prod_env:
+    build: runtime_env
+    container_name: prod_env
+    ports:
+      - '8082:8080'
+    volumes:
+      - ./prod_env/:/usr/local/tomcat/webapps/
