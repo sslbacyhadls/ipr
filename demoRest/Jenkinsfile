@@ -27,7 +27,7 @@ pipeline {
         stage ('Deploy to test'){
             steps {
                 dir ("demoRest"){
-                  sh "sshpass -p \"test\" scp target/demoRest-*.war ssh_user@test_env:/tmp/"
+                  sh "sshpass -p \"test\" scp -oStrictHostKeyChecking=no target/demoRest-*.war ssh_user@test_env:/tmp/"
                   sh "sshpass -p \"test\" ssh -t ssh_user@test_env  \"sudo mv /tmp/demoRest*.war //usr/local/tomcat/webapps/\" && sudo /usr/local/tomcat/bin/startup.sh"
                 }
             }
