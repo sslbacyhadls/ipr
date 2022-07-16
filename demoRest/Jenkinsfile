@@ -27,7 +27,7 @@ pipeline {
         stage ('Deploy to test'){
             steps {
                 dir ("demoRest"){
-                  sh "sshpass -p "576189" scp target/demoRest-*.war ssh_user:test@test_env:/usr/local/tomcat/webapps/"
+                  sh "sshpass -p \"576189\" scp target/demoRest-*.war ssh_user:test@test_env:/usr/local/tomcat/webapps/"
                 }
             }
         }
