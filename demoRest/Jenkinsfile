@@ -31,7 +31,7 @@ pipeline {
                   sh 'sshpass -p \"test\" ssh -t ssh_user@test_env  \"sudo mv /tmp/demoRest*.war //usr/local/tomcat/webapps/\"'
                   sh 'sshpass -p \"test\" ssh -t ssh_user@test_env  \"sudo JAVA_HOME=/usr/local/openjdk-11 /usr/local/tomcat/bin/shutdown.sh\"'
                   sh 'sshpass -p \"test\" ssh -t ssh_user@test_env  \"sudo JAVA_HOME=/usr/local/openjdk-11 /usr/local/tomcat/bin/startup.sh\"'
-                  sh "curl -o /dev/null -s -w "%{http_code}\n" http://test_env:8080/demoRest-$VERSION"
+                  sh "curl -o /dev/null -s -w \"%{http_code}\n\" http://test_env:8080/demoRest-$VERSION"
                 }
             }
         }
