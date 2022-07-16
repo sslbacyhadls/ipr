@@ -11,3 +11,17 @@ services:
   volumes:
     - ./jenkins_configuration:/var/jenkins_home
     - /var/run/docker.sock:/var/run/docker.sock
+
+ jenkins_agent:
+   build: mavenSlave/
+   container_name: jnlp-slave
+   user: root
+   restart: always
+   environment:
+     JENKINS_URL:  http://jenkins:8080
+     JENKINS_SECRET: cf43699d7e42e7a437c1d582d03b207d8587f10b1adb3d3444d9666ee0b856dc
+     JENKINS_AGENT_NAME:  agent-docker
+   volumes:
+     - /var/run/docker.sock:/var/run/docker.sock
+     - /usr/bin/docker:/usr/bin/docker
+     - ./jnlp_slave:/var/jenkins_home
