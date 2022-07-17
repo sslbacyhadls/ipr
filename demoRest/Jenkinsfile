@@ -1,8 +1,8 @@
 node ("maven"){
     stage ('Preparation') {
-        pom = readMavenPom file: 'demoRest/pom.xml'
-        VERSION = pom.version
-        echo $VERSION
+        dir('demoRest') {
+          VERSION = sh 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout'
+        }
     }
 
     stage ('Get source code') {
