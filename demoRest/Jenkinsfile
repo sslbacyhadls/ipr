@@ -21,14 +21,14 @@ node ("maven"){
 
     stage ('Deply to test server') {
       dir ("demoRest"){
-        sh "sshpass -p \"test\" scp -oStrictHostKeyChecking=no target/demoRest-${BUILD_VERSION}.war ssh_user@test_env:/tmp/"
-        sh "sshpass -p \"test\" ssh -t ssh_user@test_env  \"sudo mv /tmp/demoRest-${BUILD_VERSION}.war /usr/local/tomcat/webapps/\""
+        sh "sshpass -p \"test\" scp -oStrictHostKeyChecking=no target/demoRest-${env.env.BUILD_VERSION}.war ssh_user@test_env:/tmp/"
+        sh "sshpass -p \"test\" ssh -t ssh_user@test_env  \"sudo mv /tmp/demoRest-${env.BUILD_VERSION}.war /usr/local/tomcat/webapps/\""
         sh 'sshpass -p \"test\" ssh -t ssh_user@test_env  \"sudo JAVA_HOME=/usr/local/openjdk-11 /usr/local/tomcat/bin/shutdown.sh\"'
         sh 'sshpass -p \"test\" ssh -t ssh_user@test_env  \"sudo JAVA_HOME=/usr/local/openjdk-11 /usr/local/tomcat/bin/startup.sh\"'
       }
     }
 
     stage ('Archive this version'){
-      sh 'cp demoRest/demoRest-${BUILD_VERSION}.war /opt'
+      sh 'cp demoRest/demoRest-${env.BUILD_VERSION}.war /opt'
     }
 }
