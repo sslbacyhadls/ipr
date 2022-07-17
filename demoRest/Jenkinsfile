@@ -6,7 +6,7 @@ node ("maven"){
 
     stage ('Preparation') {
         env.BUILD_VERSION = sh( script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true).trim()
-        echo ${env.BUILD_VERSION}
+        sh "echo ${env.BUILD_VERSION}"
     }
 
     stage ('Maven test'){
