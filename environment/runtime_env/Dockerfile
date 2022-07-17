@@ -1,4 +1,4 @@
-FROM tomcat:jre11-openjdk
+FROM tomcat:9.0.64-jre11-openjdk
 
 RUN apt update && apt install  openssh-server sudo -y
 
