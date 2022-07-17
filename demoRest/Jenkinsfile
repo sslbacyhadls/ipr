@@ -5,7 +5,7 @@ node {
 
     stage ('Maven test'){
       dir('demoRest') {
-        bat 'mvn test'
+        sh 'mvn test'
       }
     }
 
