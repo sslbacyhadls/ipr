@@ -23,7 +23,7 @@ node ("maven"){
       }
     }
 
-    stage ('Deply to test server') {
+    stage ('Deply to server') {
       dir ("demoRest"){
         sh "sshpass -p \"test\" scp -oStrictHostKeyChecking=no target/demoRest-${env.APP_VER}.war ssh_user@${deploy_server}:/tmp/"
         sh "sshpass -p \"test\" ssh -t ssh_user@${deploy_server}  \"sudo mv /tmp/demoRest-${env.APP_VER}.war /usr/local/tomcat/webapps/demoRest.war\""
