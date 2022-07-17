@@ -1,7 +1,8 @@
 node ("maven"){
     stage ('Preparation') {
-        pom = readMavenPom file: 'pom.xml'
+        pom = readMavenPom file: 'demorest/pom.xml'
         VERSION = pom.version
+        echo $VERSION
     }
 
     stage ('Get source code') {
