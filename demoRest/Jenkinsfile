@@ -5,8 +5,8 @@ node ("maven"){
     }
 
     stage ('Preparation') {
-        env.BUILD_VERSION = sh( script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true).trim()
-        sh "echo ${env.BUILD_VERSION}"
+        env.APP_VER = sh( script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true).trim()
+        sh "echo ${env.APP_VER}"
     }
 
     stage ('Maven test'){
@@ -23,14 +23,14 @@ node ("maven"){
 
     stage ('Deply to test server') {
       dir ("demoRest"){
-        sh "sshpass -p \"test\" scp -oStrictHostKeyChecking=no target/demoRest-${env.env.BUILD_VERSION}.war ssh_user@test_env:/tmp/"
-        sh "sshpass -p \"test\" ssh -t ssh_user@test_env  \"sudo mv /tmp/demoRest-${env.BUILD_VERSION}.war /usr/local/tomcat/webapps/\""
+        sh "sshpass -p \"test\" scp -oStrictHostKeyChecking=no target/demoRest-${env.APP_VER}.war ssh_user@test_env:/tmp/"
+        sh "sshpass -p \"test\" ssh -t ssh_user@test_env  \"sudo mv /tmp/demoRest-${env.APP_VER}.war /usr/local/tomcat/webapps/\""
         sh 'sshpass -p \"test\" ssh -t ssh_user@test_env  \"sudo JAVA_HOME=/usr/local/openjdk-11 /usr/local/tomcat/bin/shutdown.sh\"'
         sh 'sshpass -p \"test\" ssh -t ssh_user@test_env  \"sudo JAVA_HOME=/usr/local/openjdk-11 /usr/local/tomcat/bin/startup.sh\"'
       }
     }
 
     stage ('Archive this version'){
-      sh 'cp demoRest/demoRest-${env.BUILD_VERSION}.war /opt'
+      sh 'cp demoRest/demoRest-${env.APP_VER}.war /opt'
     }
 }
