@@ -1,4 +1,8 @@
 node ("maven"){
+    stage ('Preparation') {
+        env.VERSION = sh( script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true).trim()
+    }
+
     stage ('Get source code') {
         git credentialsId: '21d4d238-46ac-4300-a7a7-b5ad76d3b839', url: 'https://github.com/sslbacyhadls/ipr'
     }
@@ -17,15 +21,14 @@ node ("maven"){
 
     stage ('Deply to test server') {
       dir ("demoRest"){
-        VERSION = sh( script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true).trim()
-        sh "sshpass -p \"test\" scp -oStrictHostKeyChecking=no target/demoRest-${VERSION}.war ssh_user@test_env:/tmp/"
-        sh "sshpass -p \"test\" ssh -t ssh_user@test_env  \"sudo mv /tmp/demoRest-${VERSION}.war /usr/local/tomcat/webapps/\""
+        sh "sshpass -p \"test\" scp -oStrictHostKeyChecking=no target/demoRest-${env.VERSION}.war ssh_user@test_env:/tmp/"
+        sh "sshpass -p \"test\" ssh -t ssh_user@test_env  \"sudo mv /tmp/demoRest-${env.VERSION}.war /usr/local/tomcat/webapps/\""
         sh 'sshpass -p \"test\" ssh -t ssh_user@test_env  \"sudo JAVA_HOME=/usr/local/openjdk-11 /usr/local/tomcat/bin/shutdown.sh\"'
         sh 'sshpass -p \"test\" ssh -t ssh_user@test_env  \"sudo JAVA_HOME=/usr/local/openjdk-11 /usr/local/tomcat/bin/startup.sh\"'
       }
     }
 
     stage ('Archive this version'){
-      sh 'cp demoRest/demoRest-$VERSION.war /opt'
+      sh 'cp demoRest/demoRest-${env.VERSION}.war /opt'
     }
 }
