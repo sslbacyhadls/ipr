@@ -31,8 +31,4 @@ node ("maven"){
         sh 'sshpass -p \"test\" ssh -t ssh_user@test_env  \"sudo JAVA_HOME=/usr/local/openjdk-11 /usr/local/tomcat/bin/startup.sh\"'
       }
     }
-
-    stage ('Archive this version'){
-      sh 'cp demoRest/target/demoRest-${env.APP_VER}.war /opt'
-    }
 }
