@@ -1,10 +1,4 @@
 node ("maven"){
-    stage ('Preparation') {
-        dir('demoRest') {
-          VERSION = sh 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout'
-        }
-    }
-
     stage ('Get source code') {
         git credentialsId: '21d4d238-46ac-4300-a7a7-b5ad76d3b839', url: 'https://github.com/sslbacyhadls/ipr'
     }
@@ -23,6 +17,7 @@ node ("maven"){
 
     stage ('Deply to test server') {
       dir ("demoRest"){
+        VERSION = sh 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout'
         sh 'sshpass -p \"test\" scp -oStrictHostKeyChecking=no target/demoRest-*.war ssh_user@test_env:/tmp/'
         sh 'sshpass -p \"test\" ssh -t ssh_user@test_env  \"sudo mv /tmp/demoRest-$VERSION.war /usr/local/tomcat/webapps/\"'
         sh 'sshpass -p \"test\" ssh -t ssh_user@test_env  \"sudo JAVA_HOME=/usr/local/openjdk-11 /usr/local/tomcat/bin/shutdown.sh\"'
@@ -31,6 +26,6 @@ node ("maven"){
     }
 
     stage ('Archive this version'){
-      sh 'cp demoRest/demoRest-$VERSION.war /opt' 
+      sh 'cp demoRest/demoRest-$VERSION.war /opt'
     }
 }
