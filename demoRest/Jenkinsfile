@@ -5,8 +5,10 @@ node ("maven"){
     }
 
     stage ('Preparation') {
+      dir('demoRest') {
         env.APP_VER = sh( script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true).trim()
         sh "echo ${env.APP_VER}"
+      }
     }
 
     stage ('Maven test'){
