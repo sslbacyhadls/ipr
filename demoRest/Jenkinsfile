@@ -1,38 +1,26 @@
-pipeline {
-    agent {
-        node {
-        label 'maven'
-        }
+node {
+    stage ('Get source code') {
+        git credentialsId: '21d4d238-46ac-4300-a7a7-b5ad76d3b839', url: 'https://github.com/sslbacyhadls/ipr'
     }
 
-    environment {
-      VERSION = '0.0.1-SNAPSHOT'
+    stage ('Maven test'){
+      dir('demoRest') {
+        bat 'mvn test'
+      }
     }
 
-    stages {
-        stage ('Get source code') {
-            steps {
-                git credentialsId: '21d4d238-46ac-4300-a7a7-b5ad76d3b839', url: 'https://github.com/sslbacyhadls/ipr'
-            }
-        }
+    stage ('Build') {
+      dir ("demoRest"){
+        sh 'mvn clean install'
+      }
+    }
 
-        stage ('Build') {
-            steps {
-                dir ("demoRest"){
-                sh 'mvn clean install'
-                }
-            }
-        }
-
-        stage ('Deploy to test'){
-            steps {
-                dir ("demoRest"){
-                  sh 'sshpass -p \"test\" scp -oStrictHostKeyChecking=no target/demoRest-*.war ssh_user@test_env:/tmp/'
-                  sh 'sshpass -p \"test\" ssh -t ssh_user@test_env  \"sudo mv /tmp/demoRest*.war /usr/local/tomcat/webapps/\"'
-                  sh 'sshpass -p \"test\" ssh -t ssh_user@test_env  \"sudo JAVA_HOME=/usr/local/openjdk-11 /usr/local/tomcat/bin/shutdown.sh\"'
-                  sh 'sshpass -p \"test\" ssh -t ssh_user@test_env  \"sudo JAVA_HOME=/usr/local/openjdk-11 /usr/local/tomcat/bin/startup.sh\"'
-                }
-            }
-        }
+    stage ('Deply to test server') {
+      dir ("demoRest"){
+        sh 'sshpass -p \"test\" scp -oStrictHostKeyChecking=no target/demoRest-*.war ssh_user@test_env:/tmp/'
+        sh 'sshpass -p \"test\" ssh -t ssh_user@test_env  \"sudo mv /tmp/demoRest*.war /usr/local/tomcat/webapps/\"'
+        sh 'sshpass -p \"test\" ssh -t ssh_user@test_env  \"sudo JAVA_HOME=/usr/local/openjdk-11 /usr/local/tomcat/bin/shutdown.sh\"'
+        sh 'sshpass -p \"test\" ssh -t ssh_user@test_env  \"sudo JAVA_HOME=/usr/local/openjdk-11 /usr/local/tomcat/bin/startup.sh\"'
+      }
     }
 }

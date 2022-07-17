@@ -13,8 +13,8 @@ services:
     - /var/run/docker.sock:/var/run/docker.sock
 
  jenkins_agent:
-   build: mavenSlave/
-   container_name: mavenSlave
+   build: jenkins_agent/
+   container_name: jenkins_agent
    user: root
    restart: always
    environment:
