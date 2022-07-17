@@ -33,6 +33,6 @@ node ("maven"){
     }
 
     stage ('Archive this version'){
-      sh 'cp demoRest/demoRest-${env.APP_VER}.war /opt'
+      sh 'cp demoRest/target/demoRest-${env.APP_VER}.war /opt'
     }
 }
