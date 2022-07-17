@@ -24,6 +24,7 @@ services:
    volumes:
      - /var/run/docker.sock:/var/run/docker.sock
      - /usr/bin/docker:/usr/bin/docker
+     - ./jenkins_agent:/opt
 
  test_env:
     build: runtime_env
