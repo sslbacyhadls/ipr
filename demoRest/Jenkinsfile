@@ -1,10 +1,12 @@
 node ("maven"){
-    stage ('Preparation') {
-        env.BUILD_VERSION = sh( script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true).trim()
-    }
 
     stage ('Get source code') {
         git credentialsId: '21d4d238-46ac-4300-a7a7-b5ad76d3b839', url: 'https://github.com/sslbacyhadls/ipr'
+    }
+
+    stage ('Preparation') {
+        env.BUILD_VERSION = sh( script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true).trim()
+        echo ${env.BUILD_VERSION}
     }
 
     stage ('Maven test'){
