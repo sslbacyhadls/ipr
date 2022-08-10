@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.3'
 services:
  jenkins:
   image: jenkins/jenkins:lts
@@ -36,3 +36,9 @@ services:
     container_name: prod_env
     ports:
       - '8082:8080'
+networks:
+   default:
+     driver: bridge
+     ipam:
+       config:
+         - subnet: 10.0.0.0/24
