@@ -53,13 +53,6 @@ services:
       - IPC_LOCK
     command: vault server -config=/vault/config/vault.json
 
- vault-ui:
-    image: djenriquez/vault-ui:2.3.0
-    container_name: vault-ui
-    ports:
-      - 8000:8000
-    environment:
-      - 'VAULT_URL_DEFAULT=http://vault:8200'
 networks:
  default:
    driver: bridge
