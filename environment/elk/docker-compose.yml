@@ -10,7 +10,6 @@ services:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       - ./elasticsearch:/usr/share/elasticsearch/data
     environment:
-      ELASTIC_PASSWORD: Xu2e0MC4FOJltnKDbjY3
       CLI_JAVA_OPTS: "-Xms1g -Xmx1g"
       discovery.type: single-node
 
@@ -20,8 +19,6 @@ services:
     volumes:
       - ./logstash/logstash.yml:/usr/share/logstash/config/logstash.yml
       - ./logstash/pipeline:/usr/share/logstash/pipeline
-    environment:
-      LOGSTASH_INTERNAL_PASSWORD: lpass
     depends_on:
       - elasticsearch
 
@@ -32,8 +29,6 @@ services:
       - "5601:5601"
     volumes:
       - ./kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
-    environment:
-      KIBANA_SYSTEM_PASSWORD: kpass
     depends_on:
       - elasticsearch
 
