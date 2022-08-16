@@ -1,17 +1,23 @@
 filebeat.inputs:
-  -type: docker
-   containers:
-        path: "/usr/share/dockerlogs/data"
-        stream: "stdout"
-        ids:
-          - "*"
-        cri.parse_flags: true
-        combine_partial: true
-        exclude_files: ['\.gz$']
+- type: docker
+  combine_partial: false
+  containers.ids:
+    - '*'
+  processors:
+    - decode_json_fields:
+        fields: ["log"]
+        target: ""
+        overwrite_keys: true
+    - copy_fields:
+        fields:
+          - from: log
+            to: message
+        fail_on_error: false
+        ignore_missing: true
+    - drop_fields:
+        fields: ["log"]
+        ignore_missing: false
 
-processors:
-  - add_docker_metadata:
-      host: "unix:///var/run/docker.sock"
 
 output.logstash:
   hosts: ["logstash:5044"]
