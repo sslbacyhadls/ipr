@@ -7,8 +7,8 @@ services:
       - "9300:9300"
       - "9200:9200"
     volumes:
-      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,z
-      - ./elasticsearch:/usr/share/elasticsearch/data:z
+      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./elasticsearch:/usr/share/elasticsearch/data
     environment:
       ELASTIC_PASSWORD: Xu2e0MC4FOJltnKDbjY3
       CLI_JAVA_OPTS: "-Xms1g -Xmx1g"
