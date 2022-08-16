@@ -1,2 +1,3 @@
 demoRest/target
 jenkins/jenkins_configuration
+environment/elk/elasticsearch
