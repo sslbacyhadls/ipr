@@ -6,4 +6,4 @@ elasticsearch.hosts: [ "http://elastic:9200" ]
 monitoring.ui.container.elasticsearch.enabled: true
 elasticsearch.username: kibana_system
 elasticsearch.password: sXGsqKzZYKpEAU*OBp+B
-server.publicBaseUrl: "kibana.sslbacyhadls.ru"
+server.publicBaseUrl: http://kibana.sslbacyhadls.ru
