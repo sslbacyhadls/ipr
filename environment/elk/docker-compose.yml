@@ -44,3 +44,10 @@ services:
       - ./filebeat/filebeat.yml:/usr/share/filebeat/config/filebeat.yml
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
+
+networks:
+ default:
+   driver: bridge
+   ipam:
+     config:
+       - subnet: 10.3.0.0/24
