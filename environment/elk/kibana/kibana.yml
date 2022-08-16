@@ -7,4 +7,3 @@ monitoring.ui.container.elasticsearch.enabled: true
 elasticsearch.username: kibana_system
 elasticsearch.password: fOVlG97VzYtt0gG8d3qJ
 server.publicBaseUrl: http://kibana.sslbacyhadls.ru
-xpack.reporting.kibanaServer.hostname: http://kibana.sslbacyhadls.ru
