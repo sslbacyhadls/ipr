@@ -2,11 +2,10 @@ version: '3.3'
 services:
    elasticsearch:
     image: elasticsearch:8.3.3
-    container_name: elastic
+    container_name: elasticsearch
     ports:
       - "9300:9300"
       - "9200:9200"
-    container_name: elastic
     volumes:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,z
       - ./elasticsearch:/usr/share/elasticsearch/data:z
