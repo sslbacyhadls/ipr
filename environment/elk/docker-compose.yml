@@ -38,7 +38,7 @@ services:
       - elasticsearch
 
    filebeat:
-    image: kibana:8.3.3
+    image: filebeat:8.3.3
     container_name: filebeat
     volumes:
       - ./filebeat/filebeat.yml:/usr/share/filebeat/config/filebeat.yml
