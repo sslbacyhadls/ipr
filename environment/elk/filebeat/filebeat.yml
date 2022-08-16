@@ -22,6 +22,11 @@ filebeat.inputs:
 output.logstash:
   hosts: ["logstash:5044"]
 
+output.elasticsearch:
+  hosts: ["elasticsearch"]
+  username: "elastic"
+  password: "e8y1P3a4q-t8-eLy9U-z"
+
 log files:
 logging.level: error
 logging.to_files: false
