@@ -1,8 +1,8 @@
 filebeat.inputs:
-- type: docker
-  combine_partial: false
-  containers.ids:
-    - '*'
+- type: filestream
+  enabled: true
+  paths:
+    - "/var/lib/docker/containers/*/*.log"
   processors:
     - decode_json_fields:
         fields: ["log"]
@@ -16,28 +16,23 @@ filebeat.inputs:
         ignore_missing: true
     - drop_fields:
         fields: ["log"]
-        ignore_missing: false
-
+        ignore_missing: false 
 
 output.logstash:
-  hosts: ["logstash:5044"]
-
-output.elasticsearch:
-  hosts: ["elasticsearch"]
-  username: "elastic"
-  password: "e8y1P3a4q-t8-eLy9U-z"
+   hosts: ["logstash:5044"]
 
 log files:
-logging.level: error
-logging.to_files: false
-logging.to_syslog: false
-loggins.metrice.enabled: false
-logging.files:
-  path: /var/log/filebeat
-  name: filebeat
-  keepfiles: 7
-  permissions: 0644
+   logging.level: error
+   logging.to_files: false
+   logging.to_syslog: false
+   loggins.metrice.enabled: false
+   logging.files:
+     path: /var/log/filebeat
+     name: filebeat
+     keepfiles: 7
+     permissions: 0644
+
 ssl.verification_mode: none
 
 setup.kibana:
-  host: "kibana"
+   host: "kibana"

@@ -34,12 +34,17 @@ services:
 
    filebeat:
     image: docker.elastic.co/beats/filebeat:8.3.3
+    user: root
     container_name: filebeat
+    environment:
+      ELASTICSEARCH_USERNAME: elastic
+      ELASTICSEARCH_PASSWORD: e8y1P3a4q-t8-eLy9U-z
     volumes:
-      - ./filebeat/filebeat.yml:/usr/share/filebeat/config/filebeat.yml
+      - ./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-
+    depends_on:
+      - logstash
 networks:
  default:
    driver: bridge
