@@ -1,0 +1,10 @@
+version: '3.3'
+services:
+  wildfly:
+    container_name: wildfly
+    image: quay.io/wildfly/wildfly
+    command: /opt/jboss/wildfly/bin/standalone.sh
+    ports:
+      - 9990:9990
+    volumes:
+      - ./configuration:/opt/jboss/wildfly/standalone/configuration
