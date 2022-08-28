@@ -43,8 +43,10 @@ services:
       - ./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/log/nginx/access.log:/samplelogs/nginx/access.log
     depends_on:
       - logstash
+
 networks:
  default:
    driver: bridge

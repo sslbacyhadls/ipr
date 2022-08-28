@@ -6,6 +6,10 @@ filebeat.inputs:
     - CONTAINER_NAME=elasticsearch
     - CONTAINER_NAME=logstash
 
+- type: log
+  paths:
+    - /samplelogs/nginx/*
+
 output.logstash:
    hosts: ["logstash:5044"]
 
