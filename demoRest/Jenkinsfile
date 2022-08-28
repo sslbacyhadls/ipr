@@ -24,6 +24,6 @@ node ("maven"){
     }
 
     stage ('Archive artifacts'){
-      archiveArtifacts artifacts: 'demoRest/target/demoRest-${env.APP_VER}.war', followSymlinks: false, onlyIfSuccessful: true
+      archiveArtifacts artifacts: 'demoRest/target/demoRest-*.war', followSymlinks: false, onlyIfSuccessful: true
     }
 }
