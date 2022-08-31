@@ -37,10 +37,11 @@ def pipeline(){
 
 
 def failed (e) {
-
+      stage("Fail email") {
         mail to: 'shlemov@gmail.com',
             subject: "Pipeline failed: ${currentBuild.fullDisplayName}",
             body: "Error in ${env.BUILD_URL} $e"
-
+      }
+}
 
 }
