@@ -26,4 +26,17 @@ node ("maven"){
     stage ('Archive artifacts'){
       archiveArtifacts artifacts: 'demoRest/target/demoRest-*.war', followSymlinks: false, onlyIfSuccessful: true
     }
+
+    post {
+      success {
+        mail to: 'shlemov@gmail.com',
+            subject: "Pipeline success: ${currentBuild.fullDisplayName}",
+            body: "Build completed: app version is ${env.APP_VER}"
+      }
+      fail {
+        mail to: 'shlemov@gmail.com',
+            subject: "Pipeline failed: ${currentBuild.fullDisplayName}",
+            body: "Error in ${env.BUILD_URL}"
+      }
+    }
 }
