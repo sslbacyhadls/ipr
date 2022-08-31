@@ -1,9 +1,10 @@
 node ("maven"){
 
-try{
+  try{
     pipeline()
-} catch (e) {
+  } catch (e) {
     failed(e)
+  }
 }
 
 def pipeline(){
@@ -42,6 +43,4 @@ def failed (e) {
             subject: "Pipeline failed: ${currentBuild.fullDisplayName}",
             body: "Error in ${env.BUILD_URL} $e"
       }
-}
-
 }
