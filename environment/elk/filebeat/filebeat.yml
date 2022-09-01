@@ -1,10 +1,4 @@
 filebeat.inputs:
-- type: journald
-  id: everything
-  include_matches:
-    - CONTAINER_NAME=kibana
-    - CONTAINER_NAME=elasticsearch
-    - CONTAINER_NAME=logstash
 
 - type: log
   paths:

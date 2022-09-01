@@ -1,0 +1,31 @@
+jenkins:
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: "admin"
+          password: "admin"
+        - id: "shlemov"
+          password: "123"
+  authorizationStrategy:
+    globalMatrix:
+      permissions:
+        - "Job/Build:admin"
+        - "Job/Cancel:admin"
+        - "Job/Read:admin"
+        - "Job/Workspace:admin"
+        - "Overall/Administer:admin"
+        - "Overall/Read:authenticated"
+        - "Run/Replay:admin"
+        - "Run/Update:admin"
+  nodes:
+    - permanent:
+        name: "docker_agent"
+        remoteFS: "/home/jenkins"
+        launcher:
+          jnlp:
+            workDirSettings:
+              disabled: true
+              failIfWorkDirIsMissing: false
+              internalDir: "remoting"
+              workDirPath: "/tmp"
